@@ -15,6 +15,8 @@ function preload() {
 
 function setup() {
   createCanvas(640, 480);
+
+  
   let frames = spritedata.frames;
   for (let i = 0; i < frames.length; i++) {
     let pos = frames[i].position;

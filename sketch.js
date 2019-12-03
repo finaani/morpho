@@ -1,24 +1,39 @@
-var spr;
-
-function setup() {
-  createCanvas(400, 400);
-  
-  spr = createSprite(width/2, height/2, 40, 40);
-  spr.shapeColor = color(255);
-  spr.rotateToDirection = true;
-  spr.maxSpeed = 2;
-  spr.friction = 0.99;
 
 
+let spritesheet;
+let spritedata;
+
+let animation = [];
+
+let horses = [];
+
+function preload() {
+  spritedata = loadJSON('horse/horse.json');
+  spritesheet = loadImage('horse/horse.png');
 }
 
 
-function draw() {
-  background(50);
-  if (mouseIsPressed) {
-    spr.attractionPoint(0.5, mouseX, mouseY);
+function setup() {
+  createCanvas(640, 480);
+  let frames = spritedata.frames;
+  for (let i = 0; i < frames.length; i++) {
+    let pos = frames[i].position;
+    let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    animation.push(img);
   }
-  drawSprites();
 
+  for (let i = 0; i < 5; i++) {
+    horses[i] = new Sprite(animation, 0, i * 75, random(0.1, 0.4));
+  }
+}
 
+function draw() {
+  background(0);
+
+  for (let horse of horses) {
+    horse.show();
+    horse.animate();
+  }
+
+  // image(animation[frameCount % animation.length], 0, 0);
 }

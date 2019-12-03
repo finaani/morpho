@@ -1,74 +1,38 @@
-var spr;
+
+let spritesheet;
+let spritedata;
+
+let animation = [];
+
+let horses = [];
+
+function preload() {
+  spritedata = loadJSON('horse/horse.json');
+  spritesheet = loadImage('horse/horse.png');
+}
 
 
 function setup() {
-  createCanvas(800, 400);
+  createCanvas(640, 480);
+  let frames = spritedata.frames;
+  for (let i = 0; i < frames.length; i++) {
+    let pos = frames[i].position;
+    let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    animation.push(img);
+  }
 
-
-  spr = createSprite(
-    width/2, height/2, 40, 40);
-  spr.shapeColor = color(255);
-
-
-
-
+  for (let i = 0; i < 5; i++) {
+    horses[i] = new Sprite(animation, 0, i * 75, random(0.1, 0.4));
+  }
 }
-
-
-
 
 function draw() {
-  background(50);
-  spr.velocity.x = (mouseX - spr.position.x) * 0.2;
-  spr.velocity.y = (mouseY - spr.position.y) * 0.2;
-  drawSprites();
+  background(0);
 
-
-  fill(255);
-   noStroke();
-   textSize(72);
-   textAlign(CENTER, CENTER);
-   if (score < 10) {
-     text(score, width/2, height/2);
-   }
-   else {
-     text("you win!", width/2, height/2);
-   }
- }
- function removeAndScore() {
-   score += 1;
-   this.remove();
- }
-
- }
-
- for (var i = 0; i < allSprites.length; i++) {
-    // gravity
-    allSprites[i].addSpeed(0.1, 90);
-    if (allSprites[i].position.y > height) {
-      allSprites[i].velocity.y *= -1;
-    }
-    // any code that removes sprites should be
-    // the *last* thing in the loop!
-    if (allSprites[i].position.x > width ||
-        allSprites[i].position.x < 0) {
-      allSprites[i].remove();
-    }
+  for (let horse of horses) {
+    horse.show();
+    horse.animate();
   }
-  textAlign(RIGHT, TOP);
-  text("sprite count: " + allSprites.length,
-    width-10, 10);
-  drawSprites();
-}
-function mousePressed() {
-  var spr = createSprite(width/2, height/2,
-    random(10, 50), random(10, 50));
-  spr.shapeColor = color(255);
-  spr.velocity.y = random(3);
-  spr.velocity.x = random(-3, 3);
-  spr.position.x = mouseX;
-  spr.position.y = mouseY;
-}
 
-
+  // image(animation[frameCount % animation.length], 0, 0);
 }

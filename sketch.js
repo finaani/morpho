@@ -7,12 +7,18 @@ let morphY = 200;
 let iX = 0;
 let iY = 0;
 let score = 1;
+let playerColor;
 
-
+let playerShape;
+let shapes= ["square", "ellipse"]
 
 function setup() {
-  frameRate = 1
-  createCanvas(800, 400);
+  frameRate = 2
+  createCanvas(windowWidth, windowHeight);
+
+  playerColor = color(random(255), random(255), random(255))
+ playerShape= random(shapes);
+
 
 }
 
@@ -57,10 +63,21 @@ function draw() {
 
 
 function playerShow() {
-  fill(200, 20, 40);
+  fill(playerColor);
   noStroke();
   ellipseMode(CENTER)
-  ellipse(playerX, playerY, 25)
+
+if (playerShape=="ellipse"){
+
+  ellipse(playerX, playerY, 25);
+
+}
+else if (playerShape=="square") {
+
+  rect(playerX, playerY, 25, 25)
+
+}
+
 }
 
 

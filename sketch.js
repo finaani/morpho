@@ -17,7 +17,7 @@ function setup() {
 }
 
 function draw() {
-  background(0,203,108);
+  background(0);
   foodShow()
   playerShow()
   keyPressed()

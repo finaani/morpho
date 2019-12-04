@@ -22,7 +22,6 @@ function setup() {
     animation.push(img);
 
 
-    	// copied
 
   }
 

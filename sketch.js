@@ -52,39 +52,29 @@ function draw() {
 
 
 
+
+  let frames = spritedata.frames;
+  for (let i = 0; i < frames.length; i++) {
+    let pos = frames[i].position;
+    let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    animation.push(img);
+
+
+
   }
 
-
-
-function playerShow() {
-  fill(200, 20, 40);
-  noStroke();
-  ellipseMode(CENTER)
-  ellipse(playerX, playerY, 25)
-}
-
-
-function keyPressed() {
-  playerX = playerX + iX;
-  playerY = playerY + iY;
-  if (keyCode === UP_ARROW) {
-    iX = 0;
-    iY = -4;
-  }
-  if (keyCode === DOWN_ARROW) {
-    iX = 0;
-    iY = 4;
-  }
-  if (keyCode === RIGHT_ARROW) {
-    iY = 0;
-    iX = 4;
-  }
-  if (keyCode === LEFT_ARROW) {
-    iY = 0;
-    iX = -4;
+  for (let i = 0; i < 2; i++) {
+    horses[i] = new Sprite(animation, 0, i * 75, random(0.1, 0.4));
   }
 }
 
+function draw() {
+  background(0);
+  var circleX = random(width);
+var circleY = random(height);
+var circleSize = random(10, 100);
+fill(random(255), random(255), random(255));
+ellipse(circleX, circleY, circleSize)
 
 function foodShow() {
     let a = random(0,255);

@@ -15,8 +15,6 @@ function preload() {
 
 function setup() {
   createCanvas(640, 480);
-
-  
   let frames = spritedata.frames;
   for (let i = 0; i < frames.length; i++) {
     let pos = frames[i].position;
@@ -24,10 +22,11 @@ function setup() {
     animation.push(img);
 
 
+    	// copied
 
   }
 
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 5; i++) {
     horses[i] = new Sprite(animation, 0, i * 75, random(0.1, 0.4));
   }
 }
@@ -40,10 +39,9 @@ var circleSize = random(10, 100);
 fill(random(255), random(255), random(255));
 ellipse(circleX, circleY, circleSize)
 
+
   for (let horse of horses) {
     horse.show();
     horse.animate();
   }
-
-  // image(animation[frameCount % animation.length], 0, 0);
 }

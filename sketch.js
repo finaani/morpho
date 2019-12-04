@@ -4,6 +4,8 @@ let playerX = 300;
 let playerY = 385;
 let morphX = 300;
 let morphY = 200;
+let randomX = random(width);
+let randomY = random(height);
 let iX = 0;
 let iY = 0;
 let score = 1;
@@ -93,7 +95,7 @@ function foodShow() {
   fill(a,b,c)
   noStroke()
   ellipseMode(CENTER)
-  ellipse(morphX, morphY, 10)
+  ellipse(randomX, randomY, 10)
 
 
 }

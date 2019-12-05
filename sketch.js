@@ -7,18 +7,12 @@ let morphY = 200;
 let iX = 0;
 let iY = 0;
 let score = 1;
-let playerColor;
 
-let playerShape;
-let shapes= ["square", "ellipse"]
+
 
 function setup() {
-  frameRate = 2
+  frameRate = 1
   createCanvas(windowWidth, windowHeight);
-
-  playerColor = color(random(255), random(255), random(255))
- playerShape= random(shapes);
-
 
 }
 
@@ -35,7 +29,7 @@ function draw() {
 }
 
   function death(){
-    if(playerX > 590){
+    if(playerX > 1400){
       background (200,40,50)
       print("You lost!")
     }
@@ -49,7 +43,7 @@ function draw() {
             print("You lost!")
 
     }
-    if(playerY > 390){
+    if(playerY > windowHeight){
       background (200,40,50)
             print("You lost!")
 
@@ -63,21 +57,10 @@ function draw() {
 
 
 function playerShow() {
-  fill(playerColor);
+  fill(200, 20, 40);
   noStroke();
   ellipseMode(CENTER)
-
-if (playerShape=="ellipse"){
-
-  ellipse(playerX, playerY, 25);
-
-}
-else if (playerShape=="square") {
-
-  rect(playerX, playerY, 25, 25)
-
-}
-
+  ellipse(playerX, playerY, 25)
 }
 
 

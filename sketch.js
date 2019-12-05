@@ -1,18 +1,44 @@
 // assign variables for each functions that'll be used.
+// A World of morphos that morph through out life
+// The more they eat, they grow and longer they survive
+// The longer they survive, the more likely they are to reproduce new phases in their life
+// The bigger they are, the more changes to them
+// The bigger they are, the slower they are to change often
+// When the morphos die, new morphos are left behind
+
+// creation of our morphos
+var xBall = Math.floor(Math.random() * 300) + 50;
+var yBall = 50;
+var diameter = 50;
+var xBallChange = 5;
+var yBallChange = 5;
+
+// paddle waddle away
+var xPaddle;
+var yPaddle;
+var paddleWidth = 100;
+var paddleHeight = 25;
+var started = false;
+var score = score++;
+let playerColor; // color changes
+
 
 let player; // main player
+let world;
 
 let playerX = 300;
+let food;
 let playerY = 385;
 let morphX = 300;
 let morphY = 200;
 let iX = 0;
 let iY = 0;
-let score = 1;
-let playerColor; // color changes
 
 let playerShape; // this will have the shapes change shapes everytime it hits the ball
 let shapes = ["square", "ellipse"]
+
+
+
 
 function setup() { // this a setup for the window frame.
   frameRate = 2
@@ -23,7 +49,15 @@ function setup() { // this a setup for the window frame.
   playerShape = random(shapes);
 
 
+  // morpho world starts with 20 morphos
+    // and 20 pieces of food
+
 }
+
+
+
+
+
 
 function draw() {
   background(0);
@@ -35,7 +69,66 @@ function draw() {
   scorePrint()
 
 
+  // this changes the shapes colors everytime its reloaded
+   playerColor = color(random(255), random(255), random(255))
+   playerShape = random(shapes);
+
+ fill(255, 0, 255);
+ noStroke();
+ ellipse(xBall, yBall, diameter, diameter);
+
+  xBall += xBallChange;
+ yBall += yBallChange;
+
+
+
+   //ball movement control
+   if (xBall < diameter/2 ||
+       xBall > windowWidth - 0.5*diameter) {
+   xBallChange *= -1;
+ }
+ if (yBall < diameter/2 ||
+      yBall > windowHeight - diameter) {
+   yBallChange *= -1;
+ }
+
+
+    //morpho bounce off paddle
+   if ((xBall > xPaddle &&
+       xBall < xPaddle + paddleWidth) &&
+       (yBall + (diameter/2) >= yPaddle)) {
+   xBallChange *= -1;
+   yBallChange *= -1;
+ }
+
+
+   // paddle true or false
+   if (!started) {
+   xPaddle = windowWidth / 2;
+   yPaddle = windowHeight - 100;
+   started = true;
+
+
+ }
+
+
+function keyPressed() {
+  if (keyCode === LEFT_ARROW) {
+    xPaddle -= 50;
+  } else if (keyCode === RIGHT_ARROW) {
+    xPaddle += 50;
+  }
 }
+
+ // design for paddles
+ fill(0, 255, 255);
+ noStroke();
+ rect(xPaddle, yPaddle, paddleWidth, paddleHeight);
+
+ }
+
+
+
 // death is for when player hits the edges and the screen goes red. inttially should also say "you lost"
 function death() {
   if (playerX > 590) {
@@ -138,6 +231,26 @@ function scorePrint() {
 
 
 
+
+  function foodUpdate() {
+    let d = dist(playerX, playerY, morphX, morphY)
+    if (d < 15) {
+      foodX = random(10, 590);
+      foodY = random(10, 390);
+      print("+" + score)
+    }
+
+  }
+
+  function scorePrint() {
+    let d = dist(playerX, playerY, morphX, morphY)
+
+    if (d < 15) {
+      score++
+    }
+
+
+  }
 
 
 }

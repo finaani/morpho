@@ -10,8 +10,8 @@
 var xBall = Math.floor(Math.random() * 300) + 50;
 var yBall = 50;
 var diameter = 50;
-var xBallChange = 5;
-var yBallChange = 5;
+var xBallChange = 0;
+var yBallChange = 0;
 
 // paddle waddle away
 var xPaddle;
@@ -56,7 +56,7 @@ function setup() { // this a setup for the window frame.
 
 
 
-
+//--------------draw begin ----------
 
 
 function draw() {
@@ -69,15 +69,14 @@ function draw() {
   scorePrint()
 
 
-  // this changes the shapes colors everytime its reloaded
-   playerColor = color(random(255), random(255), random(255))
-   playerShape = random(shapes);
-
+// design for ellispe pong ball
  fill(255, 0, 255);
  noStroke();
  ellipse(xBall, yBall, diameter, diameter);
 
-  xBall += xBallChange;
+
+// change pong ball location continuously
+xBall += xBallChange;
  yBall += yBallChange;
 
 
@@ -111,14 +110,6 @@ function draw() {
 
  }
 
-
-function keyPressed() {
-  if (keyCode === LEFT_ARROW) {
-    xPaddle -= 50;
-  } else if (keyCode === RIGHT_ARROW) {
-    xPaddle += 50;
-  }
-}
 
  // design for paddles
  fill(0, 255, 255);
@@ -155,6 +146,10 @@ function death() {
 
 
 }
+// --------- draw ends ---------
+
+
+
 
 
 // player show shows the player that catches the ball.
@@ -178,25 +173,40 @@ function playerShow() {
 
 // keyPressed is for the arrow keys that allows player move across screen easily.
 function keyPressed() {
-  playerX = playerX + iX;
-  playerY = playerY + iY;
+
   if (keyCode === UP_ARROW) {
     iX = 0;
     iY = -4;
+    playerX = playerX + iX;
+    playerY = playerY + iY;
   }
-  if (keyCode === DOWN_ARROW) {
+  else if (keyCode === DOWN_ARROW) {
     iX = 0;
     iY = 4;
+    playerX = playerX + iX;
+    playerY = playerY + iY;
   }
-  if (keyCode === RIGHT_ARROW) {
+  else if (keyCode === RIGHT_ARROW) {
     iY = 0;
     iX = 4;
+    playerX = playerX + iX;
+    playerY = playerY + iY;
   }
-  if (keyCode === LEFT_ARROW) {
+  else if (keyCode === LEFT_ARROW) {
     iY = 0;
     iX = -4;
+    playerX = playerX + iX;
+    playerY = playerY + iY;
   }
+
+  else if (key === 'a' && xPaddle > 0 ) {
+    xPaddle -= 50;
+  } else if (key === 'd' && xPaddle < width - paddleWidth) {
+    xPaddle += 50;
+  }
+
 }
+
 
 
 function foodShow() {

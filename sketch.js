@@ -6,6 +6,10 @@
 // The bigger they are, the slower they are to change often
 // When the morphos die, new morphos are left behind
 
+
+var drawing = true
+
+
 // creation of our morphos
 var xBall = Math.floor(Math.random() * 300) + 50;
 var yBall = 50;
@@ -44,6 +48,9 @@ var targetX = cx;
 var targetY = cy;
 
 
+
+
+
 let playerShape; // this will have the shapes change shapes everytime it hits the ball
 let shapes = ["square", "ellipse"]
 
@@ -78,11 +85,6 @@ function draw() {
   scorePrint()
 
 
-
-  cx += (targetX - cx)*easing;
-   cy += (targetY - cy)*easing;
-
-   ellipse(cx,cy,cr*1,cr*1);
 
 
 
@@ -141,13 +143,26 @@ function death() {
   }
 
 
+  if (mouseIsPressed) {
+      fill(255);
+      noStroke();
+      ellipse(mouseX, mouseY, 50, 50);
+      fill(0,203,108)
+      rect(mouseX, mouseY, 70, 70)
 
+    } else {
+     fill(50, 168, 166);
+    noStroke();
+      ellipse(mouseX, mouseY, 50, 50);
+    }
 
 }
 // --------- draw ends ---------
 
 
 function mousePressed(){
+
+
 targetX= mouseX;
   targetY= mouseY;
 }

@@ -34,12 +34,20 @@ let morphY = 200;
 let iX = 0;
 let iY = 0;
 
+let playerShape; // this will have the shapes change shapes everytime it hits the ball
+let shapes = ["square", "ellipse"]
 
 
 
-function setup() {
-  frameRate = 1
+
+function setup() { // this a setup for the window frame.
+  frameRate = 2
   createCanvas(windowWidth, windowHeight);
+
+  // this changes the shapes colors everytime its reloaded
+  playerColor = color(random(255), random(255), random(255))
+  playerShape = random(shapes);
+
 
   // morpho world starts with 20 morphos
     // and 20 pieces of food
@@ -122,24 +130,10 @@ function death() {
     background(200, 40, 50)
     print("You lost!")
 
-  function death(){
-    if(playerX > 1400){
-      background (200,40,50)
-      print("You lost!")
-    }
-    if(playerX < 10){
-   background (200,40,50)
-            print("You lost!")
-
-    }
-    if(playerY < 10){
-   background (200,40,50)
-            print("You lost!")
-
-    }
-    if(playerY > windowHeight){
-      background (200,40,50)
-            print("You lost!")
+  }
+  if (playerY < 10) {
+    background(200, 40, 50)
+    print("You lost!")
 
   }
   if (playerY > 390) {
@@ -160,10 +154,21 @@ function death() {
 
 // player show shows the player that catches the ball.
 function playerShow() {
-  fill(200, 20, 40);
+  fill(playerColor); // goes back to color change in player
   noStroke();
   ellipseMode(CENTER)
-  ellipse(playerX, playerY, 25)
+
+  // for loop is for shapes to change when loses. We are trying to make it change without replaying game.
+  if (playerShape == "ellipse") {
+
+    ellipse(playerX, playerY, 25);
+
+  } else if (playerShape == "square") {
+
+    rect(playerX, playerY, 25, 25)
+
+  }
+
 }
 
 // keyPressed is for the arrow keys that allows player move across screen easily.

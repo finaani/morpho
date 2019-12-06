@@ -34,9 +34,18 @@ let morphY = 200;
 let iX = 0;
 let iY = 0;
 
+var cx =100;
+var cy = 100;
+var cr= 100;
+var speed = 5;
+var easing = 0.1;
+
+var targetX = cx;
+var targetY = cy;
+
+
 let playerShape; // this will have the shapes change shapes everytime it hits the ball
 let shapes = ["square", "ellipse"]
-
 
 
 
@@ -50,7 +59,7 @@ function setup() { // this a setup for the window frame.
 
 
   // morpho world starts with 20 morphos
-    // and 20 pieces of food
+  // and 20 pieces of food
 
 }
 
@@ -69,54 +78,43 @@ function draw() {
   scorePrint()
 
 
-// design for ellispe pong ball
- fill(255, 0, 255);
- noStroke();
- ellipse(xBall, yBall, diameter, diameter);
 
+  cx += (targetX - cx)*easing;
+   cy += (targetY - cy)*easing;
 
-// change pong ball location continuously
-xBall += xBallChange;
- yBall += yBallChange;
+   ellipse(cx,cy,cr*1,cr*1);
 
 
 
-   //ball movement control
-   if (xBall < diameter/2 ||
-       xBall > windowWidth - 0.5*diameter) {
-   xBallChange *= -1;
- }
- if (yBall < diameter/2 ||
-      yBall > windowHeight - diameter) {
-   yBallChange *= -1;
- }
 
 
-    //morpho bounce off paddle
-   if ((xBall > xPaddle &&
-       xBall < xPaddle + paddleWidth) &&
-       (yBall + (diameter/2) >= yPaddle)) {
-   xBallChange *= -1;
-   yBallChange *= -1;
- }
 
 
-   // paddle true or false
-   if (!started) {
-   xPaddle = windowWidth / 2;
-   yPaddle = windowHeight - 100;
-   started = true;
+  //morpho bounce off paddle
+  if ((xBall > xPaddle &&
+      xBall < xPaddle + paddleWidth) &&
+    (yBall + (diameter / 2) >= yPaddle)) {
+    xBallChange *= -1;
+    yBallChange *= -1;
+  }
 
 
- }
+  // paddle true or false
+  if (!started) {
+    xPaddle = windowWidth / 2;
+    yPaddle = windowHeight - 100;
+    started = true;
 
 
- // design for paddles
- fill(0, 255, 255);
- noStroke();
- rect(xPaddle, yPaddle, paddleWidth, paddleHeight);
+  }
 
- }
+
+  // design for paddles
+  fill(0, 255, 255);
+  noStroke();
+  rect(xPaddle, yPaddle, paddleWidth, paddleHeight);
+
+}
 
 
 
@@ -149,6 +147,10 @@ function death() {
 // --------- draw ends ---------
 
 
+function mousePressed(){
+targetX= mouseX;
+  targetY= mouseY;
+}
 
 
 
@@ -179,27 +181,22 @@ function keyPressed() {
     iY = -4;
     playerX = playerX + iX;
     playerY = playerY + iY;
-  }
-  else if (keyCode === DOWN_ARROW) {
+  } else if (keyCode === DOWN_ARROW) {
     iX = 0;
     iY = 4;
     playerX = playerX + iX;
     playerY = playerY + iY;
-  }
-  else if (keyCode === RIGHT_ARROW) {
+  } else if (keyCode === RIGHT_ARROW) {
     iY = 0;
     iX = 4;
     playerX = playerX + iX;
     playerY = playerY + iY;
-  }
-  else if (keyCode === LEFT_ARROW) {
+  } else if (keyCode === LEFT_ARROW) {
     iY = 0;
     iX = -4;
     playerX = playerX + iX;
     playerY = playerY + iY;
-  }
-
-  else if (key === 'a' && xPaddle > 0 ) {
+  } else if (key === 'a' && xPaddle > 0) {
     xPaddle -= 50;
   } else if (key === 'd' && xPaddle < width - paddleWidth) {
     xPaddle += 50;
